@@ -3,7 +3,7 @@ import socket
 import time
 import urllib.request
 
-AWS_IP = "18.220.250.31"
+AWS_IP = "3.149.253.191"
 
 print("==================================")
 print("PRUEBA HTTP - GET /users")

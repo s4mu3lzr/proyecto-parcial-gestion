@@ -179,6 +179,10 @@ app.get('/items/last', async (req, res) => {
   }
 });
 
+app.get('/api/health', (req, res) => {
+  res.json({ message: 'Pipeline CI/CD funcionando al 100% en AWS!' });
+});
+
 app.get('/items/:id', async (req, res) => {
   try {
     const item = await getDb('SELECT * FROM items WHERE id = ?', [req.params.id]);
