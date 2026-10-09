@@ -71,19 +71,6 @@ app.get('/items', async (req, res) => {
   }
 });
 
-app.get('/items/:id', async (req, res) => {
-  try {
-    const item = await getDb('SELECT * FROM items WHERE id = ?', [req.params.id]);
-    if (!item) {
-      return res.status(404).json({ statusCode: 404, data: [{ message: 'Item no encontrado', id: req.params.id }] });
-    }
-
-    return res.json(normalizeResponse([item]));
-  } catch (error) {
-    return res.status(500).json({ statusCode: 500, data: [{ message: error.message }] });
-  }
-});
-
 app.get('/items/count', async (req, res) => {
   try {
     const row = await getDb('SELECT COUNT(*) AS total FROM items');
@@ -164,20 +151,6 @@ app.post('/backup', async (req, res) => {
   }
 });
 
-app.delete('/items/:id', async (req, res) => {
-  try {
-    const item = await getDb('SELECT * FROM items WHERE id = ?', [req.params.id]);
-    if (!item) {
-      return res.status(404).json({ statusCode: 404, data: [{ message: 'Item no encontrado', id: req.params.id }] });
-    }
-
-    await runDb('DELETE FROM items WHERE id = ?', [req.params.id]);
-    return res.json(normalizeResponse([{ message: 'Item eliminado', deleted: item }]));
-  } catch (error) {
-    return res.status(500).json({ statusCode: 500, data: [{ message: error.message }] });
-  }
-});
-
 app.delete('/items/truncate', async (req, res) => {
   try {
     await runDb('DELETE FROM items');
@@ -201,6 +174,33 @@ app.get('/items/last', async (req, res) => {
   try {
     const row = await getDb('SELECT * FROM items ORDER BY id DESC LIMIT 1');
     return res.json(normalizeResponse(row ? [row] : []));
+  } catch (error) {
+    return res.status(500).json({ statusCode: 500, data: [{ message: error.message }] });
+  }
+});
+
+app.get('/items/:id', async (req, res) => {
+  try {
+    const item = await getDb('SELECT * FROM items WHERE id = ?', [req.params.id]);
+    if (!item) {
+      return res.status(404).json({ statusCode: 404, data: [{ message: 'Item no encontrado', id: req.params.id }] });
+    }
+
+    return res.json(normalizeResponse([item]));
+  } catch (error) {
+    return res.status(500).json({ statusCode: 500, data: [{ message: error.message }] });
+  }
+});
+
+app.delete('/items/:id', async (req, res) => {
+  try {
+    const item = await getDb('SELECT * FROM items WHERE id = ?', [req.params.id]);
+    if (!item) {
+      return res.status(404).json({ statusCode: 404, data: [{ message: 'Item no encontrado', id: req.params.id }] });
+    }
+
+    await runDb('DELETE FROM items WHERE id = ?', [req.params.id]);
+    return res.json(normalizeResponse([{ message: 'Item eliminado', deleted: item }]));
   } catch (error) {
     return res.status(500).json({ statusCode: 500, data: [{ message: error.message }] });
   }
@@ -296,4 +296,5 @@ module.exports = {
   app,
   db,
   startServers,
+  tcpServer,
 };
