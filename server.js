@@ -180,7 +180,7 @@ app.get('/items/last', async (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
-  res.json({ message: 'Pipeline CI/CD funcionando al 100% en AWS!' });
+  res.json({ message: 'Pipeline CI/CD funcionando al 2000%' });
 });
 
 app.get('/items/:id', async (req, res) => {
