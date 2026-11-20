@@ -180,7 +180,7 @@ app.get('/items/last', async (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
-  res.json({statusCode: 200, message: 'Pipeline CI/CD funcionando Remedial' });
+  res.json({statusCode: 200, message: 'Remedial' });
 });
 
 app.get('/items/:id', async (req, res) => {
