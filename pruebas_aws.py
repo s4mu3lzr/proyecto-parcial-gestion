@@ -3,12 +3,11 @@ import socket
 import time
 import urllib.request
 
-AWS_IP = "3.149.253.191"
+AWS_IP = "54.196.202.32" # Reemplaza con la IP pública de tu instancia EC2
 
 print("==================================")
-print("PRUEBA HTTP - GET /users")
-print("==================================")
-url = f"http://{AWS_IP}:8080/users"
+print("PRUEBA HTTP - GET /items")
+url = f"http://{AWS_IP}:80/items"
 try:
     with urllib.request.urlopen(url, timeout=10) as response:
         status = response.getcode()
