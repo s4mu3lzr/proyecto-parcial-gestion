@@ -180,7 +180,7 @@ app.get('/items/last', async (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
-  res.json({statusCode: 200, message: 'Remedial' });
+  res.json({statusCode: 200, message: 'Remedial segunda' });
 });
 
 app.get('/items/:id', async (req, res) => {
